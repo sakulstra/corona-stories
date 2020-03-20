@@ -1,59 +1,64 @@
-import Head from 'next/head'
+import Head from "next/head";
+import Link from "next/link";
 
 const Home = () => (
   <div className="container">
     <Head>
-      <title>Create Next App</title>
+      <title>CoronaStories</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
     <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
+      <h1 className="title">Welcome to CoronaStories</h1>
 
       <p className="description">
-        Get started by editing <code>pages/index.js</code>
+        Unlike the name suggests this is not about the virus corona, but its
+        inevitable effects on our society.
+        <br />
+        With corona speading fast and people slowly following the suggestions to
+        stay at home, there's a gigantic amount of - ungifted, but willing -
+        people sitting at home suddenly finding there alleged creative streak.
+        <br />
+        I've just started learning guitar and my neighbors love it. I now what
+        i'm talking about.
+        <br />
+        To prevent this written outpourings from ever wasting paper in print,
+        we've built this platform to help you realize that 1) your in fact not
+        gifted 2) reassure you you're not alone.
       </p>
 
       <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
-
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
-
-        <a
-          href="https://zeit.co/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
-        >
-          <h3>Deploy &rarr;</h3>
-          <p>
-            Instantly deploy your Next.js site to a public URL with ZEIT Now.
-          </p>
-        </a>
+        <Link passHref href="/write-a-story">
+          <a className="card">
+            <h3>Start your story &rarr;</h3>
+            <p>
+              Select a genre and write the beginning of your story. Rest assured
+              that other people will evolve it to sth sexual/racits or farty.
+              People are bad.
+            </p>
+          </a>
+        </Link>
+        <Link passHref href="/browse-stories">
+          <a className="card">
+            <h3>Continue a story &rarr;</h3>
+            <p>
+              Select a genre and you'll get a story assigned which wou'll have
+              the pleasure to read and continue with your very own
+              interpretation. Let the juices flow.
+            </p>
+          </a>
+        </Link>
       </div>
     </main>
 
     <footer>
+      Proudly presented by{" "}
       <a
-        href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+        href="https://twitter.com/sakulstra"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
+        @sakulstra
       </a>
     </footer>
 
@@ -87,12 +92,6 @@ const Home = () => (
 
       footer img {
         margin-left: 0.5rem;
-      }
-
-      footer a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
 
       a {
@@ -198,6 +197,6 @@ const Home = () => (
       }
     `}</style>
   </div>
-)
+);
 
-export default Home
+export default Home;
