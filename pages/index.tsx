@@ -19,9 +19,6 @@ const Home = () => (
         stay at home, there's a gigantic amount of - ungifted, but willing -
         people sitting at home suddenly finding there alleged creative streak.
         <br />
-        I've just started learning guitar and my neighbors love it. I now what
-        i'm talking about.
-        <br />
         To prevent this written outpourings from ever wasting paper in print,
         we've built this platform to help you realize that 1) your in fact not
         gifted 2) reassure you you're not alone.
