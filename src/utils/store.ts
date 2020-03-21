@@ -3,10 +3,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 type State = {
   light: boolean;
+  user: any;
 };
 
 const initialState: State = {
-  light: true
+  light: true,
+  user: null
 };
 
 const reducer = (state: State = initialState, action): State => {
@@ -20,6 +22,16 @@ const reducer = (state: State = initialState, action): State => {
       return {
         ...state,
         light: true
+      };
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.user
+      };
+    case "UNSET_USER":
+      return {
+        ...state,
+        user: null
       };
     default:
       return state;
