@@ -1,11 +1,11 @@
 import React from "react";
-import LoginButton from "@components/LoginButton";
+import LoginUi from "@components/LoginUi";
 
 export default function WriteAStory() {
   return (
     <div>
       Start a new story
-      <LoginButton />
+      <LoginUi />
     </div>
   );
 }
