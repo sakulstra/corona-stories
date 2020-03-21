@@ -40,16 +40,6 @@ const uiConfig = {
 };
 
 const useStyles = makeStyles({
-  root: {
-    display: "flex",
-    height: 60,
-    padding: "5px 0px",
-    alignItems: "center"
-  },
-  grow: {
-    flexGrow: 1
-  },
-  avatarContainer: {},
   dialog: {
     minWidth: 400,
     paddingBottom: 20
@@ -78,37 +68,34 @@ export default function UserAvatar() {
   };
 
   return (
-    <div className={classes.root}>
-      <div className={classes.grow}></div>
-      <div className={classes.avatarContainer}>
-        {user && (
-          <Chip
-            variant="outlined"
-            onDelete={handleDelete}
-            avatar={
-              <Avatar
-                src="https://www.thispersondoesnotexist.com/image"
-                style={{ width: 42, height: 42 }}
-              />
-            }
-            label={user.displayName}
-          />
-        )}
-        {!user && <button onClick={() => setDialogOpen(true)}>login</button>}
-        <Dialog
-          fullScreen={fullScreen}
-          open={dialogOpen}
-          onClose={() => setDialogOpen(false)}
-        >
-          <DialogTitle>Login</DialogTitle>
-          <div className={classes.dialog}>
-            <StyledFirebaseAuth
-              uiConfig={uiConfig}
-              firebaseAuth={firebase.auth()}
+    <div>
+      {user && (
+        <Chip
+          variant="outlined"
+          onDelete={handleDelete}
+          avatar={
+            <Avatar
+              src="https://www.thispersondoesnotexist.com/image"
+              style={{ width: 42, height: 42 }}
             />
-          </div>
-        </Dialog>
-      </div>
+          }
+          label={user.displayName}
+        />
+      )}
+      {!user && <button onClick={() => setDialogOpen(true)}>login</button>}
+      <Dialog
+        fullScreen={fullScreen}
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+      >
+        <DialogTitle>Login</DialogTitle>
+        <div className={classes.dialog}>
+          <StyledFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        </div>
+      </Dialog>
     </div>
   );
 }
