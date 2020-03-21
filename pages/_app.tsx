@@ -1,10 +1,11 @@
 import React from "react";
 import App from "next/app";
 import Head from "next/head";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { Provider } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-import theme from "@components/theme";
+import Theme from "@utils/theme";
+import { store } from "@utils/store";
 
 export default class MyApp extends App {
   componentDidMount() {
@@ -27,13 +28,15 @@ export default class MyApp extends App {
             content="minimum-scale=1, initial-scale=1, width=device-width"
           />
         </Head>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Container>
-            <Component {...pageProps} />
-          </Container>
-        </ThemeProvider>
+        <Provider store={store}>
+          <Theme>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Container>
+              <Component {...pageProps} />
+            </Container>
+          </Theme>
+        </Provider>
       </React.Fragment>
     );
   }
