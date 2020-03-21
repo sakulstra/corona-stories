@@ -6,24 +6,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import firebase from "firebase";
-import { useUser } from "@utils/actions/useUser";
+import firebase from "@utils/firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-
-// Configure Firebase.
-const config = {
-  apiKey: "AIzaSyB9M0rMoZtJ0VHyksZO9DGtXBaXcH7E8TI",
-  authDomain: "corona-stories.firebaseapp.com",
-  databaseURL: "https://corona-stories.firebaseio.com",
-  projectId: "corona-stories",
-  storageBucket: "corona-stories.appspot.com",
-  messagingSenderId: "579433547134",
-  appId: "1:579433547134:web:7542cf74ae12c7dbe1df2f",
-  measurementId: "G-29E766Z3ZV"
-};
-if (firebase.apps.length === 0) {
-  firebase.initializeApp(config);
-}
+import { useUser } from "@utils/actions/useUser";
 
 const uiConfig = {
   // Popup signin flow rather than redirect flow.
