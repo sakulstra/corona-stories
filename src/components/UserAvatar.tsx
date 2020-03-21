@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Chip from "@material-ui/core/Chip";
+import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -82,7 +83,11 @@ export default function UserAvatar() {
           label={user.displayName}
         />
       )}
-      {!user && <button onClick={() => setDialogOpen(true)}>login</button>}
+      {!user && (
+        <Button variant="outlined" onClick={() => setDialogOpen(true)}>
+          login
+        </Button>
+      )}
       <Dialog
         fullScreen={fullScreen}
         open={dialogOpen}
