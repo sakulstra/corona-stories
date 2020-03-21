@@ -66,18 +66,22 @@ const getRandomImage = async (
   return result;
 };
 
-export default function ImageSelector({ keyword }: { keyword: string }) {
-  const [image, setImage] = useState<string>("");
-  const getImages = async () => {
-    const image = (await getRandomImage(keyword)).resultUrl;
-    setImage(image);
+export default function ImageSelector({
+  keyword,
+  onChange
+}: {
+  keyword: string;
+  onChange: Function;
+}) {
+  const getImages = () => {
+    const handler = setTimeout(async () => {
+      const image = (await getRandomImage(keyword)).resultUrl;
+      onChange(image);
+    }, 500);
+    return () => clearTimeout(handler);
   };
   useEffect(() => {
-    getImages();
+    return getImages();
   }, [keyword]);
-  return (
-    <div>
-      <img src={image} key={image} />
-    </div>
-  );
+  return null;
 }
