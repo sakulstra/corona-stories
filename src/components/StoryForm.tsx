@@ -3,6 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ImageSelector from "@components/ImageSelector";
+import firebase from "@utils/firebase";
+import { Story } from "@ty";
+import { useUser } from "@utils/actions/useUser";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,10 +29,23 @@ const useStyles = makeStyles(theme => ({
 
 export default function CustomTextField(props) {
   const classes = useStyles();
+  const { user } = useUser();
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
   const maxLength = 400;
+  const saveStory = () => {
+    const db = firebase.firestore();
+    db.collection("stories")
+      .doc(title)
+      .set({
+        title: title,
+        slug: title,
+        imgSrc: image,
+        parts: [{ text: message, userId: user.uid }],
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      } as Story);
+  };
   return (
     <div className={classes.root}>
       <img
@@ -60,7 +76,9 @@ export default function CustomTextField(props) {
         variant="outlined"
         rows={6}
       />
-      <Button variant="outlined">Start your story</Button>
+      <Button variant="outlined" onClick={saveStory}>
+        Start your story
+      </Button>
     </div>
   );
 }

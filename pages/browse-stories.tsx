@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Story, StoryDummy } from "@ty";
 import List from "@material-ui/core/List";
@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
+import firebase from "@utils/firebase";
 
 const DummyStories: Story[] = [StoryDummy];
 
@@ -22,13 +23,11 @@ function StoryList({ stories }: { stories: Story[] }) {
         >
           <ListItem component="a">
             <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
+              <Avatar src={story.imgSrc} />
             </ListItemAvatar>
             <ListItemText
               primary={story.title}
-              secondary={story.createdAt.toLocaleDateString()}
+              secondary={story.createdAt.toDate().toDateString()}
             />
           </ListItem>
         </Link>
@@ -38,8 +37,22 @@ function StoryList({ stories }: { stories: Story[] }) {
 }
 
 export default function BrowseStories() {
-  // TODO: fetch stories
-  const stories = DummyStories;
+  const [stories, setStories] = useState<any[]>([]);
+  const fetchData = () => {
+    const db = firebase.firestore();
+    return db.collection("stories").onSnapshot(querySnapshot => {
+      const stories = [];
+      querySnapshot.forEach(function(doc) {
+        stories.push(doc.data());
+      });
+      setStories(stories);
+    });
+  };
+
+  useEffect(() => {
+    return fetchData();
+  }, []);
+
   return (
     <div>
       <StoryList stories={stories} />
