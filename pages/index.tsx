@@ -1,7 +1,6 @@
 import Head from "next/head";
 import LinkCard from "@components/LinkCard";
 import { useLight } from "@utils/actions/useLight";
-import Footer from "@components/Footer";
 
 export default function Home() {
   const { light } = useLight();
@@ -50,7 +49,6 @@ export default function Home() {
           </LinkCard>
         </div>
       </main>
-      <Footer />
 
       <style jsx>{`
         .container {

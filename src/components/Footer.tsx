@@ -4,6 +4,7 @@ import LightSwitch from "@components/LightSwitch";
 
 const useStyles = makeStyles({
   root: {
+    marginTop: "20px",
     position: "relative",
     width: "100%",
     height: 100,
