@@ -6,8 +6,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Theme from "@utils/theme";
 import { store } from "@utils/store";
-import Avatar from "@components/Avatar";
 import Footer from "@components/Footer";
+import Header from "@components/Header";
 
 export default class MyApp extends App {
   componentDidMount() {
@@ -35,7 +35,7 @@ export default class MyApp extends App {
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <Container>
-              <Avatar />
+              <Header />
               <Component {...pageProps} />
               <Footer />
             </Container>
