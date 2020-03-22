@@ -11,17 +11,17 @@ import { Story, UploadMetadata } from '@ty'
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        maxWidth: 512,
         alignItems: 'center',
         justifyContent: 'center',
         display: 'flex',
         flexDirection: 'column',
-        maxWidth: 512,
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
         },
     },
     img: {
-        maxWidth: 512,
+        maxWidth: '100%',
         margin: theme.spacing(1),
     },
     helperText: {
