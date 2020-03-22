@@ -5,9 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ImageSelector from "@components/ImageSelector";
 import firebase from "@utils/firebase";
-import { Story } from "@ty";
 import { useUser } from "@utils/actions/useUser";
 import slugify from "slugify";
+import { Story, UploadMetadata } from '@ty'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +35,7 @@ export default function CustomTextField(props) {
   const [isSaving, setIsSaving] = useState(false);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState([] as UploadMetadata);
   const maxLength = 400;
   const saveStory = async () => {
     setIsSaving(true);
@@ -47,7 +47,7 @@ export default function CustomTextField(props) {
       .set({
         title: title,
         slug,
-        imgSrc: image,
+        image,
         parts: [{ text: message, userId: user.uid }],
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       } as Story);
@@ -55,8 +55,8 @@ export default function CustomTextField(props) {
   };
   return (
     <div className={classes.root}>
-      <img className={classes.img} src={image || "/placeholder.jpg"} />
-      <ImageSelector keyword={title} onChange={setImage} />
+      <img className={classes.img} src={image.url || "/placeholder.jpg"} />
+      <ImageSelector sentence={title} onChange={setImage} />
       <TextField
         fullWidth
         variant="outlined"

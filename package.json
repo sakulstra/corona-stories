@@ -1,40 +1,43 @@
 {
-  "name": "corona-stories",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@material-ui/core": "^4.9.7",
-    "@material-ui/icons": "^4.9.1",
-    "deepai": "^1.0.15",
-    "firebase": "^7.12.0",
-    "next": "9.3.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-firebaseui": "^4.1.0",
-    "react-redux": "^7.2.0",
-    "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8",
-    "slugify": "^1.4.0",
-    "unsplash-js": "^6.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^13.9.2",
-    "@types/react": "^16.9.25",
-    "@types/unsplash-js": "^6.0.1",
-    "husky": "^4.2.3",
-    "prettier": "1.19.1",
-    "pretty-quick": "^2.0.1",
-    "tsconfig-paths-webpack-plugin": "^3.2.0",
-    "typescript": "^3.8.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
+    "name": "corona-stories",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
+    },
+    "dependencies": {
+        "@material-ui/core": "^4.9.7",
+        "@material-ui/icons": "^4.9.1",
+        "deepai": "^1.0.15",
+        "firebase": "^7.12.0",
+        "keyword-extractor": "^0.0.18",
+        "languagedetect": "^2.0.0",
+        "next": "9.3.1",
+        "react": "16.13.1",
+        "react-dom": "16.13.1",
+        "react-firebaseui": "^4.1.0",
+        "react-redux": "^7.2.0",
+        "redux": "^4.0.5",
+        "redux-devtools-extension": "^2.13.8",
+        "stripchar": "^1.2.1",
+        "unsplash-js": "^6.0.0",
+        "slugify": "^1.4.0"
+    },
+    "devDependencies": {
+        "@types/node": "^13.9.2",
+        "@types/react": "^16.9.25",
+        "@types/unsplash-js": "^6.0.1",
+        "husky": "^4.2.3",
+        "prettier": "2.0.1",
+        "pretty-quick": "^2.0.1",
+        "tsconfig-paths-webpack-plugin": "^3.2.0",
+        "typescript": "^3.8.3"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
     }
-  }
 }
