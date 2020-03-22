@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
+import slugify from 'slugify'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import Image from '@components/Image'
 import ImageSelector from '@components/ImageSelector'
 import firebase from '@utils/firebase'
 import { useUser } from '@utils/actions/useUser'
-import slugify from 'slugify'
 import { Story, UploadMetadata } from '@ty'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 512,
+        maxWidth: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         display: 'flex',
@@ -19,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
         },
-    },
-    img: {
-        maxWidth: '100%',
-        margin: theme.spacing(1),
     },
     helperText: {
         textAlign: 'right',
@@ -56,15 +53,7 @@ export default function CustomTextField(props) {
     }
     return (
         <div className={classes.root}>
-            <img
-                className={classes.img}
-                src={image.url || '/placeholder.jpg'}
-            />
-            <p>
-                <a href={image.photoUrl}>{image.photoAuthor || 'nobody'}</a> in
-                style of{' '}
-                <a href={image.styleUrl}>{image.styleAuthor || 'nobody'}</a>
-            </p>
+            <Image image={image} />
             <ImageSelector sentence={title} onChange={setImage} />
             <TextField
                 fullWidth

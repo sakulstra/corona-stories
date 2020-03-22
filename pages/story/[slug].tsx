@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import Image from '@components/Image'
 import { Story } from '@ty'
 import firebase from '@utils/firebase'
 
@@ -8,6 +10,7 @@ export default function WriteAStory() {
     const {
         query: { slug },
     } = useRouter()
+    if (!slug) return null
     const [story, setStory] = useState<Story | null>(null)
     useEffect(() => {
         const db = firebase.firestore()
@@ -20,12 +23,14 @@ export default function WriteAStory() {
     }, [])
     if (!story) return null
     return (
-        <div>
-            <img src={story.image.url} />
-            <Typography variant="h6">{story.title}</Typography>
+        <Grid container justify="center" alignItems="center">
+            <Image image={story.image} />
+            <Typography variant="h6" gutterBottom>
+                {story.title}
+            </Typography>
             {story.parts.map((part, ix) => (
                 <Typography key={ix}>{part.text}</Typography>
             ))}
-        </div>
+        </Grid>
     )
 }
