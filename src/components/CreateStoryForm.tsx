@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Image from '@components/Image'
 import ImageSelector from '@components/ImageSelector'
+import TextAreaWithCharCount from '@components/TextAreaWithCharCount'
 import firebase from '@utils/firebase'
 import { useUser } from '@utils/actions/useUser'
 import { Story, UploadMetadata } from '@ty'
@@ -21,12 +22,9 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(1),
         },
     },
-    helperText: {
-        textAlign: 'right',
-    },
 }))
 
-export default function CustomTextField(props) {
+export default function CreateStoryForm(props) {
     const classes = useStyles()
     const { user } = useUser()
     const [isSaving, setIsSaving] = useState(false)
@@ -34,7 +32,6 @@ export default function CustomTextField(props) {
     const [title, setTitle] = useState('')
     const [message, setMessage] = useState('')
     const [image, setImage] = useState([] as UploadMetadata)
-    const maxLength = 400
     const saveStory = async () => {
         setIsSaving(true)
         const slug = slugify(title)
@@ -63,18 +60,10 @@ export default function CustomTextField(props) {
                 onChange={(e) => setPreTitle(e.target.value)}
                 onBlur={(e) => setTitle(preTitle)}
             />
-            <TextField
-                {...props}
-                label="The story must go on"
-                fullWidth
+            <TextAreaWithCharCount
+                label="This could be fun"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                multiline
-                inputProps={{ maxLength }}
-                FormHelperTextProps={{ className: classes.helperText }}
-                helperText={`${message.length}/${maxLength}`}
-                variant="outlined"
-                rows={7}
             />
             <Button variant="outlined" onClick={saveStory} disabled={isSaving}>
                 Start your story

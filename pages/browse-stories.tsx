@@ -23,7 +23,7 @@ function StoryList({ stories }: { stories: Story[] }) {
                 >
                     <ListItem component="a">
                         <ListItemAvatar>
-                            <Avatar src={story.image.url} />
+                            <Avatar src={story.image.url} variant="rounded" />
                         </ListItemAvatar>
                         <ListItemText
                             primary={story.title}
