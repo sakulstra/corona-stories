@@ -139,6 +139,11 @@ export default function ImageSelector({
     }
     useEffect(() => {
         return getImages()
-    }, [sentence])
-    return <Image image={image} />
+    }, [])
+    return (
+        <>
+            <Image image={image} />
+            <button onClick={getImages}>ändern</button>
+        </>
+    )
 }
