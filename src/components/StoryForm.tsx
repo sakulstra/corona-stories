@@ -7,6 +7,7 @@ import ImageSelector from "@components/ImageSelector";
 import firebase from "@utils/firebase";
 import { Story } from "@ty";
 import { useUser } from "@utils/actions/useUser";
+import slugify from "slugify";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,13 +39,14 @@ export default function CustomTextField(props) {
   const maxLength = 400;
   const saveStory = async () => {
     setIsSaving(true);
+    const slug = slugify(title);
     const db = firebase.firestore();
     await db
       .collection("stories")
-      .doc(title)
+      .doc(slug)
       .set({
         title: title,
-        slug: title,
+        slug,
         imgSrc: image,
         parts: [{ text: message, userId: user.uid }],
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
