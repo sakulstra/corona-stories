@@ -15,8 +15,7 @@ import LanguageDetect from 'languagedetect'
 import { StripChar } from 'stripchar'
 
 const unsplash = new Unsplash({
-    accessKey:
-        '955c92676fbff5987db2c89ebad2118cbd67b7dfbf424263454ab60d029dcef1',
+    accessKey: 'Uf1FfcsEwCdCDfup-ka6-c1J4PkBcMYj6afPiNCPwTE',
 })
 
 deepai.setApiKey('b1f6a192-c7fc-4ca2-917d-80e92cb1cc4f')
