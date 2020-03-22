@@ -3,9 +3,9 @@ import Router from 'next/router'
 import slugify from 'slugify'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 import ImageSelector from '@components/ImageSelector'
 import TextAreaWithCharCount from '@components/TextAreaWithCharCount'
+import SubmitButton from './SubmitButton'
 import firebase from '@utils/firebase'
 import { useUser } from '@utils/actions/useUser'
 import { Story, UploadMetadata } from '@ty'
@@ -63,9 +63,9 @@ export default function CreateStoryForm() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
             />
-            <Button variant="outlined" onClick={saveStory} disabled={isSaving}>
+            <SubmitButton onClick={saveStory} disabled={isSaving}>
                 Start your story
-            </Button>
+            </SubmitButton>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import TextAreaWithCharCount from '@components/TextAreaWithCharCount'
 import firebase from '@utils/firebase'
 import { useUser } from '@utils/actions/useUser'
+import SubmitButton from './SubmitButton'
 
 export default function AddPartForm({ slug }: { slug: string }) {
     const [message, setMessage] = useState('')
@@ -27,9 +28,13 @@ export default function AddPartForm({ slug }: { slug: string }) {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
             />
-            <Button variant="outlined" onClick={savePart} disabled={isSaving}>
+            <SubmitButton
+                variant="outlined"
+                onClick={savePart}
+                disabled={isSaving}
+            >
                 Submit your part
-            </Button>
+            </SubmitButton>
         </>
     )
 }

@@ -25,7 +25,9 @@ export default function WriteAStory() {
             })
     }, [slug])
     if (!story) return null
-    const isParticipant = story.parts.find((part) => part.userId === user.uid)
+    const isParticipant = user
+        ? story.parts.find((part) => part.userId === user.uid)
+        : false
     return (
         <Grid container justify="center" direction="column">
             <Image image={story.image} />
