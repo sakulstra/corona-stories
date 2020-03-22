@@ -49,13 +49,14 @@ export default function UserAvatar() {
         return firebase.auth().onAuthStateChanged((user) => {
             setUser(user)
             setDialogOpen(false)
-            firebase
-                .firestore()
-                .collection('users')
-                .doc(user.uid)
-                .onSnapshot((doc) => {
-                    if (doc.data()) setProfilePicture(doc.data().profileImg)
-                })
+            user &&
+                firebase
+                    .firestore()
+                    .collection('users')
+                    .doc(user.uid)
+                    .onSnapshot((doc) => {
+                        if (doc.data()) setProfilePicture(doc.data().profileImg)
+                    })
         })
     }, [])
 
