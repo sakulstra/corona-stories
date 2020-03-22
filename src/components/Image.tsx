@@ -18,7 +18,7 @@ export default function Image({ image }: { image: UploadMetadata }) {
         <div className={classes.root}>
             <img
                 className={classes.img}
-                src={image.url || '/placeholder.jpg'}
+                src={image?.url || '/placeholder.jpg'}
             />
             <Typography variant="caption" component="div" gutterBottom>
                 <a target="_blank" href={image.photoUrl}>
