@@ -12,10 +12,10 @@ export default function WriteAStory() {
     const {
         query: { slug },
     } = useRouter()
-    if (!slug) return null
     const { user } = useUser()
     const [story, setStory] = useState<Story | null>(null)
     useEffect(() => {
+        if (!slug) return
         const db = firebase.firestore()
         return db
             .collection('stories')
@@ -23,13 +23,13 @@ export default function WriteAStory() {
             .onSnapshot(function (doc) {
                 setStory(doc.data() as Story)
             })
-    }, [])
+    }, [slug])
     if (!story) return null
     const isParticipant = story.parts.find((part) => part.userId === user.uid)
     return (
         <Grid container justify="center" direction="column">
             <Image image={story.image} />
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h4" gutterBottom align="center">
                 {story.title}
             </Typography>
             {story.parts.map((part, ix) => (
@@ -37,7 +37,7 @@ export default function WriteAStory() {
                     {part.text}
                 </Typography>
             ))}
-            {!isParticipant && <AddPartForm />}
+            {!isParticipant && <AddPartForm slug={slug as string} />}
             {isParticipant && (
                 <Typography variant="caption" align="center">
                     You're already part of this story!

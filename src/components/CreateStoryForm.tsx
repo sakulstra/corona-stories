@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function CreateStoryForm(props) {
+export default function CreateStoryForm() {
     const classes = useStyles()
     const { user } = useUser()
     const [isSaving, setIsSaving] = useState(false)
