@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Router from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -13,13 +14,13 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     display: "flex",
     flexDirection: "column",
-    maxWidth: 400,
+    maxWidth: 512,
     "& .MuiTextField-root": {
       margin: theme.spacing(1)
     }
   },
   img: {
-    maxWidth: 400,
+    maxWidth: 512,
     margin: theme.spacing(1)
   },
   helperText: {
@@ -30,13 +31,16 @@ const useStyles = makeStyles(theme => ({
 export default function CustomTextField(props) {
   const classes = useStyles();
   const { user } = useUser();
+  const [isSaving, setIsSaving] = useState(false);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
   const maxLength = 400;
-  const saveStory = () => {
+  const saveStory = async () => {
+    setIsSaving(true);
     const db = firebase.firestore();
-    db.collection("stories")
+    await db
+      .collection("stories")
       .doc(title)
       .set({
         title: title,
@@ -45,16 +49,11 @@ export default function CustomTextField(props) {
         parts: [{ text: message, userId: user.uid }],
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       } as Story);
+    Router.push("/browse-stories");
   };
   return (
     <div className={classes.root}>
-      <img
-        className={classes.img}
-        src={
-          image ||
-          "https://api.deepai.org/job-view-file/cec969fc-4866-406c-bcaf-0d5dacb4f6ae/outputs/output.png"
-        }
-      />
+      <img className={classes.img} src={image || "/placeholder.jpg"} />
       <ImageSelector keyword={title} onChange={setImage} />
       <TextField
         fullWidth
@@ -74,9 +73,9 @@ export default function CustomTextField(props) {
         FormHelperTextProps={{ className: classes.helperText }}
         helperText={`${message.length}/${maxLength}`}
         variant="outlined"
-        rows={6}
+        rows={7}
       />
-      <Button variant="outlined" onClick={saveStory}>
+      <Button variant="outlined" onClick={saveStory} disabled={isSaving}>
         Start your story
       </Button>
     </div>
