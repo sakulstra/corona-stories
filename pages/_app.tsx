@@ -34,9 +34,25 @@ export default class MyApp extends App {
                     <Theme>
                         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                         <CssBaseline />
-                        <Container maxWidth="md">
+                        <Container
+                            maxWidth="md"
+                            style={{
+                                minHeight: '100vh',
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
                             <Header />
-                            <Component {...pageProps} />
+                            <main
+                                style={{
+                                    flexGrow: 1,
+                                    display: 'flex',
+                                    justifyContent: 'space-around',
+                                    flexDirection: 'column',
+                                }}
+                            >
+                                <Component {...pageProps} />
+                            </main>
                             <Footer />
                         </Container>
                     </Theme>
