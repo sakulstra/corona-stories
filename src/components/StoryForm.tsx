@@ -33,6 +33,7 @@ export default function CustomTextField(props) {
     const classes = useStyles()
     const { user } = useUser()
     const [isSaving, setIsSaving] = useState(false)
+    const [preTitle, setPreTitle] = useState('')
     const [title, setTitle] = useState('')
     const [message, setMessage] = useState('')
     const [image, setImage] = useState([] as UploadMetadata)
@@ -69,8 +70,9 @@ export default function CustomTextField(props) {
                 fullWidth
                 variant="outlined"
                 label="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={preTitle}
+                onChange={(e) => setPreTitle(e.target.value)}
+                onBlur={(e) => setTitle(preTitle)}
             />
             <TextField
                 {...props}
