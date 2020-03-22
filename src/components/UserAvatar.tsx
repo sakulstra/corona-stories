@@ -53,9 +53,8 @@ export default function UserAvatar() {
                 .firestore()
                 .collection('users')
                 .doc(user.uid)
-                .get()
-                .then((doc) => {
-                    setProfilePicture(doc.data().profileImg)
+                .onSnapshot((doc) => {
+                    if (doc.data()) setProfilePicture(doc.data().profileImg)
                 })
         })
     }, [])
