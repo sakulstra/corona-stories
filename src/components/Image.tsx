@@ -21,12 +21,12 @@ export default function Image({ image }: { image: UploadMetadata }) {
                 src={image?.url || '/placeholder.jpg'}
             />
             <Typography variant="caption" component="div" gutterBottom>
-                <a target="_blank" href={image.photoUrl}>
-                    {image.photoAuthor || 'nobody'}
+                <a target="_blank" href={image?.photoUrl}>
+                    {image?.photoAuthor || 'nobody'}
                 </a>{' '}
                 in style of{' '}
-                <a target="_blank" href={image.styleUrl}>
-                    {image.styleAuthor || 'nobody'}
+                <a target="_blank" href={image?.styleUrl}>
+                    {image?.styleAuthor || 'nobody'}
                 </a>
             </Typography>
         </div>
