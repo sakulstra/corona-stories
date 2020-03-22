@@ -13,6 +13,7 @@ import {
 import keywordExtractor from 'keyword-extractor'
 import LanguageDetect from 'languagedetect'
 import { StripChar } from 'stripchar'
+import Image from '@components/Image'
 
 const unsplash = new Unsplash({
     accessKey: 'Uf1FfcsEwCdCDfup-ka6-c1J4PkBcMYj6afPiNCPwTE',
@@ -89,55 +90,55 @@ const getRandomImage = async (keywords: string[]): Promise<UploadMetadata> => {
 }
 
 export default function ImageSelector({
-    sentence,
+    image,
     onChange,
 }: {
-    sentence: string
+    image: UploadMetadata
     onChange: Function
 }) {
+    const sentence = 'bla'
+
     const getImages = () => {
-        if (sentence != '') {
-            const availableKeywordlangs = [
-                'danish',
-                'dutch',
-                'english',
-                'french',
-                'galician',
-                'german',
-                'italian',
-                'polish',
-                'portuguese',
-                'romanian',
-                'russian',
-                'spanish',
-                'swedish',
-            ]
-            const handler = setTimeout(async () => {
-                const strippedKeywords = StripChar.RSExceptAlpha(sentence, '_')
-                    .toString()
-                    .replace('_', ' ')
-                const language = lngDetector
-                    .detect(strippedKeywords)
-                    .filter((language) =>
-                        availableKeywordlangs.includes(language[0])
-                    )[0][0]
-                console.log(language)
-                const keywords: string[] = keywordExtractor.extract(sentence, {
-                    language,
-                    remove_digits: true,
-                    return_changed_case: true,
-                    remove_duplicates: true,
-                })
-                const image = await getRandomImage(
-                    keywords.length > 0 ? keywords : sentence.split(' ')
-                )
-                onChange(image)
-            }, 500)
-            return () => clearTimeout(handler)
-        }
+        const availableKeywordlangs = [
+            'danish',
+            'dutch',
+            'english',
+            'french',
+            'galician',
+            'german',
+            'italian',
+            'polish',
+            'portuguese',
+            'romanian',
+            'russian',
+            'spanish',
+            'swedish',
+        ]
+        const handler = setTimeout(async () => {
+            const strippedKeywords = StripChar.RSExceptAlpha(sentence, '_')
+                .toString()
+                .replace('_', ' ')
+            const language = lngDetector
+                .detect(strippedKeywords)
+                .filter((language) =>
+                    availableKeywordlangs.includes(language[0])
+                )[0][0]
+            console.log(language)
+            const keywords: string[] = keywordExtractor.extract(sentence, {
+                language,
+                remove_digits: true,
+                return_changed_case: true,
+                remove_duplicates: true,
+            })
+            const image = await getRandomImage(
+                keywords.length > 0 ? keywords : sentence.split(' ')
+            )
+            onChange(image)
+        }, 500)
+        return () => clearTimeout(handler)
     }
     useEffect(() => {
         return getImages()
     }, [sentence])
-    return null
+    return <Image image={image} />
 }

@@ -4,7 +4,6 @@ import slugify from 'slugify'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Image from '@components/Image'
 import ImageSelector from '@components/ImageSelector'
 import TextAreaWithCharCount from '@components/TextAreaWithCharCount'
 import firebase from '@utils/firebase'
@@ -50,8 +49,7 @@ export default function CreateStoryForm() {
     }
     return (
         <div className={classes.root}>
-            <Image image={image} />
-            <ImageSelector sentence={title} onChange={setImage} />
+            <ImageSelector image={image} onChange={setImage} />
             <TextField
                 fullWidth
                 variant="outlined"
