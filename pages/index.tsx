@@ -50,8 +50,8 @@ export default function Home() {
                     <>
                         To prevent this written outpourings from ever wasting
                         paper in print, we've built this platform to help you
-                        realize that your in fact not gifted reassure you you're
-                        not alone.
+                        realize that your in fact not gifted and to reassure you
+                        you're not alone.
                     </>
                 )}
                 <br />
