@@ -60,7 +60,9 @@ export default function CustomTextField(props) {
                 src={image.url || '/placeholder.jpg'}
             />
             <p>
-                {image.photoAuthor} in style of {image.styleAuthor}
+                <a href={image.photoUrl}>{image.photoAuthor || 'nobody'}</a> in
+                style of{' '}
+                <a href={image.styleUrl}>{image.styleAuthor || 'nobody'}</a>
             </p>
             <ImageSelector sentence={title} onChange={setImage} />
             <TextField
