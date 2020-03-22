@@ -20,7 +20,7 @@ function StoryList({ stories }: { stories: Story[] }) {
                         as={`/story/${story.slug}`}
                         key={story.slug}
                     >
-                        <ListItem component="a" divider>
+                        <ListItem component="a" divider button>
                             <ListItemAvatar>
                                 <Avatar
                                     src={story.image.url}

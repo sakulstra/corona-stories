@@ -64,9 +64,21 @@ export default function Home() {
                             Start your story &rarr;
                         </Typography>
                         <Typography>
-                            Select a genre and write the beginning of your
-                            story. Rest assured that other people will evolve it
-                            to sth sexual/racits or farty. People are bad.
+                            Select a title image and write the beginning of your
+                            story.{' '}
+                            {light ? (
+                                <>
+                                    Someone else will pick it up & evolve it to
+                                    sth beautiful and you can enjoy the story
+                                    being told.
+                                </>
+                            ) : (
+                                <>
+                                    Rest assured that other people will evolve
+                                    it to sth sexual/racits or farty. People
+                                    tend to be bad.
+                                </>
+                            )}
                         </Typography>
                     </LinkCard>
                 </Grid>
@@ -76,9 +88,9 @@ export default function Home() {
                             Continue a story &rarr;
                         </Typography>
                         <Typography>
-                            Select a genre and you'll get a story assigned which
-                            wou'll have the pleasure to read and continue with
-                            your very own interpretation. Let the juices flow.
+                            Select an existing story and give it your own touch.
+                            No matter if it's the urge of being part of sth
+                            great of just you being bored. Let the juices flow.
                         </Typography>
                     </LinkCard>
                 </Grid>
