@@ -69,31 +69,21 @@ const getRandomMetImage = async (keyword: string) => {
     ).then((res) => res)
 }
 
-/*const uploadImage = async (photoInformation: RandomPhotoResponse) => {
-  const imageBlob = await fetch(photoInformation.deep.output_url).then(response => response.blob())
-  const customMetadata: FirebaseUploadMetadata = {
-    photoAuthor: photoInformation.photo.user.name,
-    photoUrl: photoInformation.photo.links.html,
-    styleAuthor: photoInformation.style.artistDisplayName,
-    styleUrl: photoInformation.style.objectURL
-  }
-  const uploadTask = await firebase.storage().ref(`images/${photoInformation.deep.id}`).put(imageBlob, { customMetadata });
-  return {
-    url: await uploadTask.ref.getDownloadURL(),
-    ...customMetadata
-  }
-}*/
-
-const getRandomImage = async (keywords: string): Promise<UploadMetadata> => {
+const getRandomImage = async (keywords: string[]): Promise<UploadMetadata> => {
+    console.log(keywords)
     const result: RandomPhotoResponse = {}
-    const metImage = getRandomMetImage(keywords).then(
+    const metImage = getRandomMetImage(JSON.stringify(keywords.join(','))).then(
         (metImage) => (result.style = metImage)
     )
     const unsplashImage = unsplash.photos
-        .getRandomPhoto({ count: 1 })
+        .getRandomPhoto({ count: 1, query: JSON.stringify(keywords.join(',')) })
         .then(async (res) => ((await res.json()) as UnsplashSingleItem[])[0])
         .then((unsplashImage) => (result.photo = unsplashImage))
-    await Promise.all([metImage, unsplashImage])
+    const unsplashImageBackup = unsplash.photos
+        .getRandomPhoto({ count: 1 })
+        .then(async (res) => ((await res.json()) as UnsplashSingleItem[])[0])
+    await Promise.all([metImage, unsplashImage, unsplashImageBackup])
+    if (!result.photo) result.photo = await unsplashImageBackup
     result.photo.urls.toBeUsed = `${result.photo.urls.raw}&fit=crop&w=512&h=512&q=80`
     return getFastStyleTransfer(result)
 }
@@ -132,15 +122,14 @@ export default function ImageSelector({
                         availableKeywordlangs.includes(language[0])
                     )[0][0]
                 console.log(language)
-                const keywords = keywordExtractor.extract(sentence, {
+                const keywords: string[] = keywordExtractor.extract(sentence, {
                     language,
                     remove_digits: true,
                     return_changed_case: true,
                     remove_duplicates: true,
                 })
-                console.log(keywords)
                 const image = await getRandomImage(
-                    keywords.length > 0 ? keywords : sentence
+                    keywords.length > 0 ? keywords : sentence.split(' ')
                 )
                 onChange(image)
             }, 500)
