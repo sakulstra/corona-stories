@@ -22,24 +22,25 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 export const profilePicture = functions.auth.user().onCreate((user) => {
     const url = `avatars/${user.uid}.jpg`
     const file = admin.storage().bucket().file(url)
-    fetch('https://www.thispersondoesnotexist.com/image').then((res: any) => {
-        const contentType = res.headers.get('content-type')
-        const writeStream = file.createWriteStream({
-            metadata: {
-                contentType,
-                metadata: {
-                    myValue: 123,
-                },
-            },
-        })
-        res.body.pipe(writeStream)
-    })
-
     admin
         .firestore()
         .collection('users')
         .doc(user.uid)
         .set({
-            profileImg: `https://firebasestorage.googleapis.com/v0/b/corona-stories.appspot.com/o/${url}`,
+            profileImg: `https://storage.googleapis.com/corona-stories.appspot.com/${url}`,
         })
+
+    return fetch('https://www.thispersondoesnotexist.com/image').then(
+        (res: any) => {
+            const contentType = res.headers.get('content-type')
+            const writeStream = file.createWriteStream({
+                metadata: {
+                    contentType,
+                    source: 'https://www.thispersondoesnotexist.com/',
+                },
+                predefinedAcl: 'publicRead',
+            })
+            res.body.pipe(writeStream)
+        }
+    )
 })
