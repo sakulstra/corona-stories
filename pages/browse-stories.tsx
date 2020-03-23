@@ -56,13 +56,16 @@ export default function BrowseStories() {
     const [stories, setStories] = useState<any[]>([])
     const fetchData = () => {
         const db = firebase.firestore()
-        return db.collection('stories').onSnapshot((querySnapshot) => {
-            const stories = []
-            querySnapshot.forEach(function (doc) {
-                stories.push(doc.data())
+        return db
+            .collection('stories')
+            .orderBy('createdAt', 'desc')
+            .onSnapshot((querySnapshot) => {
+                const stories = []
+                querySnapshot.forEach(function (doc) {
+                    stories.push(doc.data())
+                })
+                setStories(stories)
             })
-            setStories(stories)
-        })
     }
 
     useEffect(() => {
