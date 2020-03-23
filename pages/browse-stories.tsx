@@ -8,6 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import firebase from '@utils/firebase'
 import Button from '@material-ui/core/Button'
+import Badge from '@material-ui/core/Badge'
 
 function StoryList({ stories }: { stories: Story[] }) {
     return (
@@ -22,10 +23,15 @@ function StoryList({ stories }: { stories: Story[] }) {
                     >
                         <ListItem component="a" divider button>
                             <ListItemAvatar>
-                                <Avatar
-                                    src={story.image.url}
-                                    variant="rounded"
-                                />
+                                <Badge
+                                    badgeContent={story.parts.length}
+                                    color="primary"
+                                >
+                                    <Avatar
+                                        src={story.image.url}
+                                        variant="rounded"
+                                    />
+                                </Badge>
                             </ListItemAvatar>
                             <ListItemText
                                 primary={story.title}
