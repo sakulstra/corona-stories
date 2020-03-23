@@ -19,6 +19,7 @@ export default function AddPartForm({ slug }: { slug: string }) {
                 parts: firebase.firestore.FieldValue.arrayUnion({
                     text: message,
                     userId: user.uid,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 }),
             })
     }
