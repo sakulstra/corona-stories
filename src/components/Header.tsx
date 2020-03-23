@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Avatar from '@components/UserAvatar'
@@ -18,10 +19,16 @@ const useStyles = makeStyles({
 
 export default function Header() {
     const classes = useStyles()
+    const { route } = useRouter()
     return (
         <div className={classes.root}>
-            <Link href="/" passHref>
-                <Button variant="outlined">Home</Button>
+            <Link
+                href={route === '/browse-stories' ? '/' : '/browse-stories'}
+                passHref
+            >
+                <Button variant="outlined">
+                    {route === '/browse-stories' ? 'Home' : 'Stories'}
+                </Button>
             </Link>
             <div className={classes.grow}></div>
             <Avatar />
