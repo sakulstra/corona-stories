@@ -53,7 +53,7 @@ export default function WriteAStory() {
                 {story.title}
             </Typography>
             {story.parts.map((part, ix) => (
-                <Typography key={ix} variant="body2" gutterBottom>
+                <Typography key={ix} variant="body1" gutterBottom>
                     {part.text}
                 </Typography>
             ))}
