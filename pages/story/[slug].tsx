@@ -40,8 +40,11 @@ export default function WriteAStory() {
     }, [slug])
     if (!story) return null
     lightModeForSentiment(story.sentiment) ? turnOnLight() : turnOffLight()
+
     const isParticipant = user
-        ? story.parts.find((part) => part.userId === user.uid)
+        ? story.parts
+              .slice(Math.max(story.parts.length - 2, 0))
+              .find((part) => part.userId === user.uid)
         : false
     return (
         <Grid container justify="center" direction="column">
@@ -60,6 +63,8 @@ export default function WriteAStory() {
                     You're already part of this story!
                     <br />
                     Send it over to friends to see how it evolves!!
+                    <br />
+                    Only every 3th part is allowed to be owned by you.
                 </Typography>
             )}
         </Grid>
