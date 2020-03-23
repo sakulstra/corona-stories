@@ -19,7 +19,8 @@ const useStyles = makeStyles({
     },
     switch: {
         position: 'absolute',
-        right: 0,
+        margin: '0 auto',
+        top: 0,
     },
 })
 
