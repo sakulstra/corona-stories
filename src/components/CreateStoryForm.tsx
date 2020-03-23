@@ -35,6 +35,7 @@ export default function CreateStoryForm() {
         setIsSaving(true)
         const slug = slugify(title)
         const db = firebase.firestore()
+        const createdAt = new Date()
         await db
             .collection('stories')
             .doc(slug)
@@ -42,8 +43,8 @@ export default function CreateStoryForm() {
                 title: title,
                 slug,
                 image,
-                parts: [{ text: message, userId: user.uid }],
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                parts: [{ text: message, userId: user.uid, createdAt }],
+                createdAt,
             } as Story)
         Router.push('/browse-stories')
     }

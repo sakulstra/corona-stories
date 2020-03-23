@@ -4,11 +4,25 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Image from '@components/Image'
 import AddPartForm from '@components/AddPartForm'
-import { Story } from '@ty'
+import { Story, SENTIMENT } from '@ty'
 import firebase from '@utils/firebase'
 import { useUser } from '@utils/actions/useUser'
+import { randomFromArray } from '@utils/helpers'
+import { useLight } from '@utils/actions/useLight'
+
+const lightModeForSentiment = (sentiment: SENTIMENT): boolean => {
+    const sentiNum: number = parseInt(SENTIMENT[sentiment])
+    if (sentiNum < 3) {
+        return false
+    }
+    if (sentiNum == 3) {
+        return randomFromArray([false, true])
+    }
+    return true
+}
 
 export default function WriteAStory() {
+    const { light, turnOffLight, turnOnLight } = useLight()
     const {
         query: { slug },
     } = useRouter()
@@ -25,6 +39,7 @@ export default function WriteAStory() {
             })
     }, [slug])
     if (!story) return null
+    lightModeForSentiment(story.sentiment) ? turnOnLight() : turnOffLight()
     const isParticipant = user
         ? story.parts.find((part) => part.userId === user.uid)
         : false
