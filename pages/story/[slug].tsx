@@ -9,7 +9,6 @@ import firebase from '@utils/firebase'
 import { useUser } from '@utils/actions/useUser'
 import { randomFromArray } from '@utils/helpers'
 import { useLight } from '@utils/actions/useLight'
-import SubscribeButton from '@components/SubscribeButton'
 
 const lightModeForSentiment = (sentiment: SENTIMENT): boolean => {
     const sentiNum: number = parseInt(SENTIMENT[sentiment])
@@ -68,7 +67,6 @@ export default function WriteAStory() {
                     Only every 3th part is allowed to be owned by you.
                 </Typography>
             )}
-            <SubscribeButton topic={slug as string} />
         </Grid>
     )
 }

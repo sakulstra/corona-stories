@@ -64,27 +64,37 @@ export const storyImage = functions.firestore
         return downloadToStorage(savePath, original?.image.url)
     })
 
-const updateOrSetSubscriber = (uid: string, story: string) => {
-    const ref = admin.firestore().collection('fcmUsers').doc(uid)
-    ref.update({ [`tokens.${story}`]: true }).catch(() => {
-        ref.set({ [`tokens.${story}`]: true })
-    })
+const subscribeToTopic = async (uid: string, story: string) => {
+    const doc = await admin.firestore().collection('fcmUsers').doc(uid).get()
+    if (!doc.data()) return
+    admin.messaging().subscribeToTopic(Object.keys(doc.data()?.tokens), story)
 }
-/**
- * adds the creator to the story topic automatically
- */
-export const subscribeCreator = functions.firestore
+
+export const handleCreation = functions.firestore
     .document('stories/{storyId}')
     .onCreate((snapshot, context) => {
         if (!context.auth?.uid) return
-        updateOrSetSubscriber(context.auth.uid, context.params.storyId)
+        subscribeToTopic(context.auth.uid, context.params.storyId)
     })
 
-export const subscribeContributor = functions.firestore
+export const handleContribution = functions.firestore
     .document('stories/{storyId}')
     .onWrite((change, context) => {
         if (!context.auth?.uid) return
-        updateOrSetSubscriber(context.auth.uid, context.params.storyId)
+        subscribeToTopic(context.auth.uid, context.params.storyId)
+        const data = change.after.data()
+        admin.messaging().send({
+            topic: context.params.storyId,
+            notification: {
+                title: data?.title,
+                body: 'Someone continued the story!',
+            },
+            webpush: {
+                fcmOptions: {
+                    link: `https://corona-stories.now.sh/stories/${context.params.storyId}`,
+                },
+            },
+        })
     })
 
 export const calculateSentiment = functions.firestore
