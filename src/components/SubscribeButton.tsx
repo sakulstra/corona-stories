@@ -1,60 +1,48 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
+import { useFcm } from '@utils/actions/useFcm'
 import firebase from '@utils/firebase'
 import { useUser } from '@utils/actions/useUser'
 
-export default function SubscribeButton() {
+const useStyles = makeStyles({
+    root: {
+        width: 200,
+        margin: '20px auto',
+    },
+})
+
+export default function SubscribeButton({ topic }: { topic?: string }) {
+    const classes = useStyles()
     const { user } = useUser()
+    const { fcmEnabled, fcmSettings, setFcmSettings } = useFcm()
 
-    const saveToken = async (token) => {
-        // set current fcm state
-        const doc = (
-            await firebase
-                .firestore()
-                .collection('fcmUsers')
-                .doc(user.uid)
-                .get()
-        ).data()
-        const currentTokens = (doc && doc.tokens) || {}
-        if (token && !currentTokens[token]) {
-            const ref = firebase
-                .firestore()
-                .collection('fcmUsers')
-                .doc(user.uid)
-            const tokens = { ...currentTokens, [token]: true }
-            if (doc) ref.update({ tokens: tokens })
-            else ref.set({ tokens: tokens })
-        }
-    }
-
-    const initializeFcm = async () => {
-        const messaging = firebase.messaging()
-        // check if we have push rights
-        await Notification.requestPermission()
-            .then(async () => messaging.getToken().then(saveToken))
-            .catch((error) => {
-                if (error.code === 'messaging/permission-blocked') {
-                    console.log('Please Unblock Notification Request Manually')
-                } else {
-                    console.log('Error Occurred', error)
-                }
-            })
-
-        messaging.onTokenRefresh(async () => {
-            await messaging.getToken().then(saveToken)
-        })
-
-        messaging.onMessage((payload) => {
-            console.log('Notification Received', payload)
+    const subscribe = () => {
+        const ref = firebase.firestore().collection('fcmUsers').doc(user.uid)
+        ref.update({ [`topics.${topic}`]: true })
+        setFcmSettings({
+            ...fcmSettings,
+            topics: { ...fcmSettings.topics, [topic]: true },
         })
     }
-    useEffect(() => {
-        if (!user) return
-        if (Notification.permission !== 'granted') return
-        initializeFcm()
-    }, [user])
 
-    return Notification.permission !== 'granted' ? (
-        <Button onClick={() => initializeFcm()}>Subscribe</Button>
-    ) : null
+    const unsubscribe = () => {
+        const ref = firebase.firestore().collection('fcmUsers').doc(user.uid)
+        ref.update({ [`topics.${topic}`]: false })
+        setFcmSettings({
+            ...fcmSettings,
+            topics: { ...fcmSettings.topics, [topic]: false },
+        })
+    }
+
+    if (!fcmEnabled || !user) return null
+    const isSubscribed = fcmSettings.topics && fcmSettings.topics[topic]
+    return (
+        <Button
+            onClick={isSubscribed ? unsubscribe : subscribe}
+            className={classes.root}
+        >
+            {isSubscribed ? 'Unsubscribe' : 'Subscribe'}
+        </Button>
+    )
 }

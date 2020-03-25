@@ -5,12 +5,19 @@ type State = {
     light: boolean
     user: any
     profileImg: string
+    fcmEnabled: boolean
+    fcmSettings: {
+        tokens: { [key: string]: string }
+        topics: { [key: string]: string }
+    }
 }
 
 const initialState: State = {
     light: true,
     user: null,
     profileImg: null,
+    fcmEnabled: false,
+    fcmSettings: null,
 }
 
 const reducer = (state: State = initialState, action): State => {
@@ -40,6 +47,16 @@ const reducer = (state: State = initialState, action): State => {
             return {
                 ...state,
                 profileImg: action.url,
+            }
+        case 'SET_FCM_SETTINGS':
+            return {
+                ...state,
+                fcmSettings: action.fcmSettings,
+            }
+        case 'SET_FCM_ENABLED':
+            return {
+                ...state,
+                fcmEnabled: action.enabled,
             }
         default:
             return state

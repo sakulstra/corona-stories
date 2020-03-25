@@ -9,7 +9,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import firebase from '@utils/firebase'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import { useUser } from '@utils/actions/useUser'
-import SubscribeButton from '@components/SubscribeButton'
 
 const uiConfig = {
     // Popup signin flow rather than redirect flow.
@@ -80,7 +79,6 @@ export default function UserAvatar() {
                     label={user.displayName}
                 />
             )}
-            {user && <SubscribeButton />}
             {!user && (
                 <Button variant="outlined" onClick={() => setDialogOpen(true)}>
                     login

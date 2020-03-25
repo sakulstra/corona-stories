@@ -8,6 +8,7 @@ import Theme from '@utils/theme'
 import { store } from '@utils/store'
 import Footer from '@components/Footer'
 import Header from '@components/Header'
+import GlobalSubscribeButton from '@components/GlobalSubscribeButton'
 
 export default class MyApp extends App {
     componentDidMount() {
@@ -54,6 +55,7 @@ export default class MyApp extends App {
                                 <Component {...pageProps} />
                             </main>
                             <Footer />
+                            <GlobalSubscribeButton />
                         </Container>
                     </Theme>
                 </Provider>
