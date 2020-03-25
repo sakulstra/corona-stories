@@ -1,3 +1,5 @@
+const withOffline = require('next-offline')
+
 const withAssetRelocator = (nextConfig = {}) => {
     return Object.assign({}, nextConfig, {
         webpack(config, options) {
@@ -32,10 +34,12 @@ const withAssetRelocator = (nextConfig = {}) => {
     })
 }
 
-module.exports = withAssetRelocator({
-    reactStrictMode: true,
-    experimental: {
-        jsconfigPaths: true, // enables it for both jsconfig.json and tsconfig.json
-    },
-    target: 'serverless',
-})
+module.exports = withAssetRelocator(
+    withOffline({
+        reactStrictMode: true,
+        experimental: {
+            jsconfigPaths: true, // enables it for both jsconfig.json and tsconfig.json
+        },
+        target: 'serverless',
+    })
+)
