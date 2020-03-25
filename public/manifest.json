@@ -1,0 +1,14 @@
+{
+    "name": "CoronaStories",
+    "short_name": "Stories",
+    "start_url": "/",
+    "gcm_sender_id": "579433547134",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/icons/logo.png",
+            "sizes": "300x300",
+            "type": "image/png"
+        }
+    ]
+}
