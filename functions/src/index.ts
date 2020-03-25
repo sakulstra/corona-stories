@@ -64,6 +64,29 @@ export const storyImage = functions.firestore
         return downloadToStorage(savePath, original?.image.url)
     })
 
+const updateOrSetSubscriber = (uid: string, story: string) => {
+    const ref = admin.firestore().collection('fcmUsers').doc(uid)
+    ref.update({ [`tokens.${story}`]: true }).catch(() => {
+        ref.set({ [`tokens.${story}`]: true })
+    })
+}
+/**
+ * adds the creator to the story topic automatically
+ */
+export const subscribeCreator = functions.firestore
+    .document('stories/{storyId}')
+    .onCreate((snapshot, context) => {
+        if (!context.auth?.uid) return
+        updateOrSetSubscriber(context.auth.uid, context.params.storyId)
+    })
+
+export const subscribeContributor = functions.firestore
+    .document('stories/{storyId}')
+    .onWrite((change, context) => {
+        if (!context.auth?.uid) return
+        updateOrSetSubscriber(context.auth.uid, context.params.storyId)
+    })
+
 export const calculateSentiment = functions.firestore
     .document('stories/{storyId}')
     .onWrite(async (change, context) => {
