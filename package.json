@@ -29,7 +29,7 @@
     },
     "devDependencies": {
         "@types/node": "^13.9.2",
-        "@types/react": "^16.9.25",
+        "@types/react": "^16.9.29",
         "@types/unsplash-js": "^6.0.1",
         "husky": "^4.2.3",
         "prettier": "2.0.1",
