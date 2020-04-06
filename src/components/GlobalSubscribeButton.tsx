@@ -14,11 +14,13 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         left: 0,
         top: 0,
+        pointerEvents: 'none',
     },
     button: {
         display: 'flex',
         position: 'fixed',
         bottom: 20,
+        pointerEvents: 'all',
     },
 })
 
@@ -71,7 +73,8 @@ export default function SubscribeButton() {
     }, [user])
 
     return !fcmEnabled &&
-        (global as any).Notification?.permission !== 'granted' ? (
+        (global as any).Notification?.permission !== 'granted' &&
+        user ? (
         <div className={classes.root}>
             <Button
                 color="primary"
