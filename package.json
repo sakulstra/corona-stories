@@ -32,7 +32,7 @@
         "@types/react": "^16.9.32",
         "@types/unsplash-js": "^6.0.1",
         "husky": "^4.2.3",
-        "prettier": "2.0.1",
+        "prettier": "2.0.3",
         "pretty-quick": "^2.0.1",
         "typescript": "^3.8.3"
     },
