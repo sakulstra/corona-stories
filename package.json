@@ -12,7 +12,7 @@
         "@material-ui/icons": "^4.9.1",
         "@zeit/webpack-asset-relocator-loader": "^0.6.4",
         "deepai": "^1.0.15",
-        "firebase": "^7.13.2",
+        "firebase": "^7.15.5",
         "keyword-extractor": "^0.0.18",
         "languagedetect": "^2.0.0",
         "next": "^9.3.2",
