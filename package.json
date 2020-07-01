@@ -8,7 +8,7 @@
         "start": "next start"
     },
     "dependencies": {
-        "@material-ui/core": "^4.9.7",
+        "@material-ui/core": "^4.11.0",
         "@material-ui/icons": "^4.9.1",
         "@zeit/webpack-asset-relocator-loader": "^0.6.4",
         "deepai": "^1.0.15",
