@@ -31,7 +31,7 @@
         "@types/node": "^13.11.0",
         "@types/react": "^16.9.32",
         "@types/unsplash-js": "^6.0.1",
-        "husky": "^4.2.3",
+        "husky": "^5.1.1",
         "prettier": "2.0.4",
         "pretty-quick": "^2.0.1",
         "typescript": "^3.8.3"
